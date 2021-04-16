@@ -2,7 +2,6 @@
 <html>
 <head>
 
-
 <link rel="stylesheet" href="styles.css">
 <meta charset="utf-8"/>
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -21,26 +20,15 @@ div {text-align: center;}
 <div></div>
 
 <script>
+
 var script = document.createElement('script');
 script.type = 'text/javascript';
-script.async = true;
-let uri = "";
-Object.keys(document.cookie.split(';').map(function(c) {
-    return c.trim().split('=').map(decodeURIComponent);
-}).reduce(function(a, b) {
-    try {
-        a[b[0]] = JSON.parse(b[1]);
-    } catch (e) {
-        a[b[0]] = b[1];
-    }
-    return a;
-}, {})).forEach((k) => {
-    uri = uri + k + "=" + a[k] + "&"
-});
-
-script.src = 'https://widgets.cryptocompare.com/serve/v3/coin/chart?' + uri.slice(0, -1);
+script.async = false;
+script.src = 'https://widgets.cryptocompare.com/serve/v3/coin/chart?' + document.cookie.split("--")[1]
 var head = document.getElementsByTagName('head')[0];
 head.appendChild(script);
+console.log("script", script)
+
 </script>
 
 </body>
