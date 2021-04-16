@@ -25,7 +25,7 @@ var script = document.createElement('script');
 script.type = 'text/javascript';
 script.async = false;
 script.src = 'https://widgets.cryptocompare.com/serve/v3/coin/chart?' + document.cookie.split("--")[1]
-var head = document.getElementsByTagName('head')[0];
+var head = document.getElementsByTagName('body')[0];
 head.appendChild(script);
 console.log("script", script)
 
