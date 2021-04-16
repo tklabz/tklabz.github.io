@@ -1,35 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script>
-function setCookie(cname,cvalue,exdays) {
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  var expires = "expires=" + d.toGMTString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-
-function checkCookie() {
-  var user=getCookie("fsym");
- return user;
-}
-</script>
 <link rel="stylesheet" href="styles.css">
 <meta charset="utf-8"/>
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -45,7 +16,27 @@ div {text-align: center;}
 <h3 style="color:#FFF;font-family: 'Libre Baskerville', serif;">Welcome Hold on 🤖</h3>
 
 <div></div>
-<script type="text/javascript" src = "checkCookie()">
+<script>
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.async = true;
+let uri = "";
+Object.keys(document.cookie.split(';').map(function(c) {
+    return c.trim().split('=').map(decodeURIComponent);
+}).reduce(function(a, b) {
+    try {
+        a[b[0]] = JSON.parse(b[1]);
+    } catch (e) {
+        a[b[0]] = b[1];
+    }
+    return a;
+}, {})).forEach((k) => {
+    uri = uri + k + "=" + a[k] + "&"
+});
+
+script.src = 'https://widgets.cryptocompare.com/serve/v3/coin/chart?' + uri.slice(0, -1);
+var head = document.getElementsByTagName('head')[0];
+head.appendChild(script);
 </script>
 
 </body>
